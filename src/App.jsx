@@ -7,7 +7,7 @@ function App() {
   
   const [pedidos, setPedidos] = useState([]);
   useEffect(()=> {
-    fetch('https://pedidos-shopee.vercel.app/api')
+    fetch('https://pedidos-shopee.netlify.app/api')
     .then(response => response.json())
     .then(data=>{
       setPedidos(data.retorno.pedidos)
