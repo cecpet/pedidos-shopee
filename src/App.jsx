@@ -20,7 +20,7 @@ function App() {
   }, [])
 
   function handleMenu() {
-      setStyle('md:w-1/3 h-full bg-slate-200  absolute right-0 -top-8 translate-x-0 p-8 z-20')
+      setStyle('w-1/2 md:w-1/3 h-full bg-slate-200 absolute right-0 -top-8 translate-x-0 p-8 z-20')
   }
 
   function styleClear() {
@@ -28,7 +28,7 @@ function App() {
   }
 
   return (
-    <div className="mx-auto relative">
+    <div className="mx-auto relative overflow-x-hidden">
       <Menu style={style} styleClear={styleClear} />
       <nav className='flex justify-between mt-8 items-center mx-8'>
         <IconContext.Provider value={{size: "2em"}}>
