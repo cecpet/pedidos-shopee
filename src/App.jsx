@@ -7,7 +7,7 @@ function App() {
   
   const [pedidos, setPedidos] = useState([]);
   useEffect(()=> {
-    fetch('/api')
+    fetch('https://pedidos-shopee.vercel.app/api')
     .then(response => response.json())
     .then(data=>{
       setPedidos(data.retorno.pedidos)
