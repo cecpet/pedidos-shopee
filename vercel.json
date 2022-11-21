@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        { "source": "/(.*)", "destination": "/index.html" },
+        {
+            "source": "/api", "destination": "https://pedidos-server.vercel.app/"
+        }
+    ]
+  }
