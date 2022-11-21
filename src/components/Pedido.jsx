@@ -8,7 +8,7 @@ export default function Pedido(props) {
     }
 
     return(
-        <div className="relative w-screen sm:mt-12 p-8 border-2 min-w-full rounded-md">
+        <div className="relative sm:mt-12 p-8 border-2 min-w-full rounded-md">
             <button className="bg-slate-300 p-2 rounded-lg" onClick={handleClick}>Pronto</button>
             <h1 className="text-2xl">{props.id}</h1>
             <h2>{props.data}</h2>
