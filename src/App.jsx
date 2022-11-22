@@ -8,8 +8,8 @@ import { IconContext } from "react-icons";
 
 
 function App() {
-  const [menu, setMenu] = useState(false)
   const [style, setStyle] = useState('')
+  const [pedidoPronto, setPedidoPronto] = useState('')
   const [pedidos, setPedidos] = useState([]);
   useEffect(()=> {
     fetch('/api')
@@ -19,12 +19,22 @@ function App() {
     })
   }, [])
 
+  function pedidoFeito(id) {
+    setPedidoPronto(id)
+  }
+
   function handleMenu() {
       setStyle('w-1/2 md:w-1/3 h-full bg-slate-200 absolute right-0 -top-8 translate-x-0 p-8 z-20')
   }
 
   function styleClear() {
     setStyle('')
+  }
+
+  if(pedidoPronto !== ''){
+    const item = pedidoPronto;
+    let index = pedidos.indexOf(item);
+    pedidos.splice(index, 1);
   }
 
   return (
@@ -42,7 +52,7 @@ function App() {
       <div className='grid grid-flow-row auto-rows-max gap-3'>
         {
           pedidos.map((item) => 
-              <Pedido key={item.pedido.numero} id={item.pedido.numeroPedidoLoja} data={item.pedido.data}>
+              <Pedido key={item.pedido.numero} id={item.pedido.numeroPedidoLoja} data={item.pedido.data} pedidos={pedidos} pedidoP={pedidoFeito}>
                 {
                   item.pedido.itens.map((item) =>
                     <PedidoItem key={item.item.codigo} descricao={item.item.descricao} qntd={parseInt(item.item.quantidade)}/>
