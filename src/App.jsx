@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-
+import { supabase } from '../supabase';
 import Pedido from './components/Pedido'
 import PedidoItem from './components/PedidoItem';
 import Menu from './components/Menu'
@@ -9,8 +9,15 @@ import { IconContext } from "react-icons";
 
 function App() {
   const [style, setStyle] = useState('')
-  const [pedidoPronto, setPedidoPronto] = useState('')
   const [pedidos, setPedidos] = useState([]);
+  const [pedidosFeitosId , setPedidosFeitosId] = useState([]);
+  async function getPedidoId() {
+  let { data: pedidos_feitos, error } = await supabase
+  .from('pedidos_feitos')
+  .select('pedido_id')
+  setPedidosFeitosId({data:pedidos_feitos});
+  }  
+
   useEffect(()=> {
     fetch('/api')
     .then(response => response.json())
@@ -19,9 +26,8 @@ function App() {
     })
   }, [])
 
-  function pedidoFeito(id) {
-    setPedidoPronto(id)
-  }
+  getPedidoId();
+
 
   function handleMenu() {
       setStyle('w-1/2 md:w-1/3 h-full bg-slate-200 absolute right-0 -top-8 translate-x-0 p-8 z-20')
@@ -30,13 +36,6 @@ function App() {
   function styleClear() {
     setStyle('')
   }
-
-  if(pedidoPronto !== ''){
-    const item = pedidoPronto;
-    let index = pedidos.indexOf(item);
-    pedidos.splice(index, 1);
-  }
-
   return (
     <div className="mx-auto relative overflow-x-hidden">
       <Menu style={style} styleClear={styleClear} />
@@ -52,7 +51,7 @@ function App() {
       <div className='grid grid-flow-row auto-rows-max gap-3'>
         {
           pedidos.map((item) => 
-              <Pedido key={item.pedido.numero} id={item.pedido.numeroPedidoLoja} data={item.pedido.data} pedidos={pedidos} pedidoP={pedidoFeito}>
+              <Pedido key={item.pedido.numero} id={item.pedido.numeroPedidoLoja} data={item.pedido.data} pedidos={pedidos}  pedidosFeitosId={pedidosFeitosId} >
                 {
                   item.pedido.itens.map((item) =>
                     <PedidoItem key={item.item.codigo} descricao={item.item.descricao} qntd={parseInt(item.item.quantidade)}/>

@@ -14,6 +14,7 @@ export default function Enviar(){
     }
 
         getPedidos()
+
     return(
         <div className='mx-4 my-4'>
             <h1 className='font-bold text-3xl'>Pedidos Separados</h1>
